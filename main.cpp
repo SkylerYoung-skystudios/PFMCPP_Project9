@@ -124,21 +124,12 @@ private:
 };
 
 template<>
-struct Wrapper <Point>
+void Wrapper<Point>::print()
 {
-    Wrapper(Point&& t) : val(std::move(t)) 
-    { 
-        std::cout << "Wrapper(" << typeid(val).name() << ")" << std::endl; 
-    }
+    std::cout << "Wrapper::print(" << val.toString() << ")" << std::endl;
+}
 
-    void print()
-    {
-        std::cout << "Wrapper::print(" << val.toString() << ")" << std::endl;    
-    }
-
-private:
-    Point val;
-};
+void variadicHelper(){}
 
 template<typename T, typename ...Args>
 void variadicHelper(T&& first, Args&& ... everythingElse)
@@ -148,6 +139,7 @@ void variadicHelper(T&& first, Args&& ... everythingElse)
     variadicHelper(std::forward<Args>( everythingElse)...); 
 }
 
+/*
 template<typename T>
 void variadicHelper(T&& first)
 {
@@ -155,7 +147,7 @@ void variadicHelper(T&& first)
     wrapper.print(); 
 }
 
-/*
+
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
  Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
